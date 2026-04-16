@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Rostdan ham o‘chirmoqchimisiz?</h2>
+
+<p>{{ elon.title }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">
+        Ha, o‘chirish
+    </button>
+</form>
+
+<a href="{% url 'detail' elon.id %}" class="btn btn-secondary">
+    Bekor qilish
+</a>
+
+{% endblock %}
+
+<a href="{% url 'update' elon.id %}" class="btn btn-warning">
+    Tahrirlash
+</a>
+
+<a href="{% url 'delete' elon.id %}" class="btn btn-danger">
+    O‘chirish
+</a>

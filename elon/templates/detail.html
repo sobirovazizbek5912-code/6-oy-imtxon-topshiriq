@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card shadow-sm p-3">
+
+    <h2>{{ elon.title }}</h2>
+
+    {% if elon.image %}
+        <img src="{{ elon.image.url }}" class="img-fluid mb-3">
+    {% endif %}
+
+    <h4>{{ elon.price }} so'm</h4>
+
+    <p>{{ elon.description }}</p>
+
+
+    <a href="{% url 'home' %}" class="btn btn-secondary">
+        ⬅ Ortga
+    </a>
+
+</div>
+
+{% endblock %}
