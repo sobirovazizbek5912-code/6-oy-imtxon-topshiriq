@@ -14,11 +14,55 @@
 
     <p>{{ elon.description }}</p>
 
-
     <a href="{% url 'home' %}" class="btn btn-secondary">
         ⬅ Ortga
     </a>
 
 </div>
 
+<!-- 🔥 COMMENT FORM -->
+<h4 class="mt-4">Izoh qoldirish</h4>
+
+<form method="POST" action="{% url 'add_comment' elon.id %}">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Ismingiz" class="form-control mb-2">
+    <textarea name="text" placeholder="Izoh..." class="form-control mb-2"></textarea>
+
+    <button type="submit" class="btn btn-success">
+        Yuborish
+    </button>
+</form>
+
+<!-- 🔥 COMMENTS LIST -->
+<h4 class="mt-4">Izohlar</h4>
+
+{% for comment in elon.comments.all %}
+<div class="card p-2 mb-2">
+    <strong>{{ comment.name }}</strong>
+    <p>{{ comment.text }}</p>
+
+    <a href="{% url 'update_comment' comment.id %}" class="btn btn-warning btn-sm">
+        Edit
+    </a>
+
+    <a href="{% url 'delete_comment' comment.id %}" class="btn btn-danger btn-sm">
+        Delete
+    </a>
+</div>
+{% empty %}
+<p>Hozircha izoh yo‘q</p>
+<p>{{ comment.text }}</p>
+<small class="text-muted">
+    {{ comment.created_at }}
+</small>
+<small class="text-muted">
+    🕒 {{ comment.created_at|date:"Y-m-d H:i" }}
+</small>
+{% endfor %}
+
 {% endblock %}
+{% if request.user == comment.user or request.user.is_superuser %}
+    <a href="{% url 'delete_comment' comment.id %}" class="btn btn-danger btn-sm">
+        Delete
+    </a>
+{% endif %}

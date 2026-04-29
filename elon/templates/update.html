@@ -2,13 +2,16 @@
 
 {% block content %}
 
-<h2>E’lonni tahrirlash</h2>
+<h3>Izohni tahrirlash</h3>
 
-<form method="POST" enctype="multipart/form-data">
+<form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
 
-    <button type="submit" class="btn btn-warning">
+    <input type="text" name="name" value="{{ comment.name }}" class="form-control mb-2">
+
+    <textarea name="text" class="form-control mb-2">{{ comment.text }}</textarea>
+
+    <button type="submit" class="btn btn-primary">
         Yangilash
     </button>
 </form>
